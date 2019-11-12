@@ -3,11 +3,6 @@
 /* This function will be invoked by pcap for each captured packet.
 We can process each packet inside the function.
 */
-void got_packet(u_char *args, const struct pcap_pkthdr *header,
-const u_char *packet)
-{
-printf("Source IP Address: %d \n Destination IP Address: %d\n",iph_sourceip, iph_destip);
-}
 
 /* IP Header */
 struct ipheader {
@@ -25,7 +20,11 @@ struct ipheader {
   struct  in_addr    iph_destip;   //Destination IP address 
 };
 
-
+void got_packet(u_char *args, const struct pcap_pkthdr *header,
+const u_char *packet)
+{
+printf("Source IP Address: %d \n Destination IP Address: %d\n",iph_sourceip, iph_destip);
+}
 
 int main(){             
                 
