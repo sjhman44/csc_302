@@ -22,7 +22,7 @@ struct ipheader {
   struct  in_addr    iph_sourceip; //Source IP address 
   struct  in_addr    iph_destip;   //Destination IP address 
 };
-
+const struct ip_header *ip;
 void got_packet(u_char *args, const struct pcap_pkthdr *header,
 const u_char *packet)
 {
