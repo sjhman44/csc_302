@@ -16,9 +16,15 @@ struct bpf_program fp;
 char filter_exp[] = "ip proto icmp";
 bpf_u_int32 net;
 // Step 1: Open live pcap session on NIC with name eth3
+//NIC is first argument
+char* dev = "eth1";
+
 // Students needs to change "eth3" to the name
 // found on their own machines (using ifconfig).
-handle = pcap_open_live("eth3", BUFSIZ, 1, 1000, errbuf);
+handle = pcap_open_live("eth1", BUFSIZ, 1, 1000, errbuf);
+if (handle == NULL) {
+        fprintf(stderr, "Couldn't open device %s: %s\n", dev, errbuf);
+        return(2);                                                                                                                                                          }                                                                                                                                                                           
 // Step 2: Compile filter_exp into BPF psuedo-code
 pcap_compile(handle, &fp, filter_exp, 0, net);
 pcap_setfilter(handle, &fp);
@@ -26,6 +32,3 @@ pcap_setfilter(handle, &fp);
 pcap_loop(handle, -1, got_packet, NULL);
 pcap_close(handle); //Close the handle
 return 0;
-}
-// Note: don’t forget to add "-lpcap" to the compilation command.
-// For example: gcc -o sniff sniff.c -lpcap
