@@ -24,7 +24,7 @@ struct ipheader {
 void got_packet(u_char *args, const struct pcap_pkthdr *header,
 const u_char *packet)
 {
-printf("Source IP Address: %d \n Destination IP Address: %d\n",iph_sourceip, iph_destip);
+printf("Source IP Address: %s \n Destination IP Address: %s\n",inet_ntoa(ip->ip_src),inet_ntoa(ip->dest));
 }
 
 int main(){             
