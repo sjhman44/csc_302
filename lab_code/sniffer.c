@@ -22,10 +22,11 @@ struct ipheader {
   struct  in_addr    iph_sourceip; //Source IP address 
   struct  in_addr    iph_destip;   //Destination IP address 
 };
-const struct ip_header *ip;
+
 void got_packet(u_char *args, const struct pcap_pkthdr *header,
 const u_char *packet)
 {
+  const struct ip_header *ip;
 printf("Source IP Address: %s \n Destination IP Address: %s\n",inet_ntoa(ip->ip_src),inet_ntoa(ip->dest));
 }
 
