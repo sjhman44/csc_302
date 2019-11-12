@@ -1,5 +1,6 @@
 #include <pcap.h>
 #include <stdio.h>
+#include <netinet/ip.h>
 /* This function will be invoked by pcap for each captured packet.
 We can process each packet inside the function.
 */
