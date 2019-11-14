@@ -7,8 +7,8 @@ def print_pkt(pkt):
 def main():
         rec_pkt = sniff(filter='icmp',prn=print_pkt)
         a = IP()
-        a.dst =  rec_pkt[0].src
-        a.src =  rec_pkt[0].dst
+        a.dst =  rec_pkt.getlayer(IP).src
+        a.src =  rec_pkt.getlayer(IP).dst
         b = ICMP()
         send(a/b)
    
