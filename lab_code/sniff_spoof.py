@@ -16,7 +16,7 @@ def print_pkt(pkt):
         p = a/b
         #send(p)
 def main():
-        rec_pkt = sniff(monitor=True,filter='icmp',prn=print_pkt)
+        rec_pkt = sniff(monitor=True,filter='icmp',prn=print_pkt) #lambda x: x.show()
 
 if __name__ == "__main__":
     main()
