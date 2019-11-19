@@ -14,3 +14,6 @@ sudo /opt/anaconda3/bin/pip install scapy
 sudo useradd -m -s /bin/bash seed
 sudo echo "seed:dees" | chpasswd
 sudo usermod -a -G sudo seed
+
+sudo ip link set eth0 promisc on
+sudo ip link set eth1 promisc on
