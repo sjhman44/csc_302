@@ -19,23 +19,22 @@ struct ipheader {
   unsigned char      iph_ttl; //Time to Live
   unsigned char      iph_protocol; //Protocol type
   unsigned short int iph_chksum; //IP datagram checksum
-  struct  in_addr    iph_sourceip; //Source IP address 
-  struct  in_addr    iph_destip;   //Destination IP address 
+  struct  in_addr    iph_sourceip; //Source IP address
+  struct  in_addr    iph_destip;   //Destination IP address
 };
 
 void got_packet(u_char *args, const struct pcap_pkthdr *header,
 const u_char *packet)
 {
-  const struct ip_header *ip;
-printf("Source IP Address: %s \n Destination IP Address: %s\n",inet_ntoa(ip->ip_src),inet_ntoa(ip->dest));
-}
+        printf("got packet\n");
+  }
 
-int main(){             
-                
+int main(){
+
 pcap_t *handle;
 char errbuf[PCAP_ERRBUF_SIZE];
 struct bpf_program fp;
-char filter_exp[] = "ip proto icmp";
+char filter_exp[] = "(src host 192.168.1.2 and dst host 192.168.1.50) and icmp";//"ICMP and (src host 192.168.1.50) and (dst host 192.168.1.80)";
 bpf_u_int32 net;
 // Step 1: Open live pcap session on NIC with name eth3
 //NIC is first argument
@@ -46,10 +45,9 @@ char* dev = "eth1";
 handle = pcap_open_live("eth1", BUFSIZ, 1, 1000, errbuf);
 if (handle == NULL) {
         fprintf(stderr, "Couldn't open device %s: %s\n", dev, errbuf);
-        return(2);                                                                                                                                                          }                                                                                                                                                                           
-// Step 2: Compile filter_exp into BPF psuedo-code
+        return(2);                                                                                                                                                         $// Step 2: Compile filter_exp into BPF psuedo-code
 pcap_compile(handle, &fp, filter_exp, 0, net);
-pcap_setfilter(handle, &fp);
+pcap_setfilter(handle,&fp);
 // Step 3: Capture packets
 pcap_loop(handle, -1, got_packet, NULL);
 pcap_close(handle); //Close the handle
